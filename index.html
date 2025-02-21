@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -10,14 +11,50 @@
             margin: 0;  /* Entfernt die Standard-Abstände */
         }
         h1 {
-    color: white;
-    text-align: center;
-}
-
-
+            color: white;
+            text-align: center;
+            font-size: 2em;
+        }
+        .letter {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInOut 3s infinite ease-in-out;
+        }
+        /* Keyframes für das Ein- und Ausblenden */
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.1;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Under construction.... New website coming soon...</h1>
+    <h1 id="text">Under construction.... New website coming soon...</h1>
+
+    <script>
+        const textElement = document.getElementById("text");
+        let text = textElement.innerText;
+        textElement.innerHTML = ""; // Löscht den Text, um Buchstaben individuell hinzuzufügen
+        // Füge jeden Buchstaben als span-Element hinzu
+        for (let i = 0; i < text.length; i++) {
+            const letterSpan = document.createElement("span");
+            letterSpan.classList.add("letter");
+            // Wenn das Zeichen ein Leerzeichen ist, füge &nbsp; hinzu
+            if (text[i] === " ") {
+                letterSpan.innerHTML = "&nbsp;";
+            } else {
+                letterSpan.innerText = text[i];
+            }
+            // Verzögerung für jedes span basierend auf der Position des Buchstabens
+            letterSpan.style.animationDelay = `${Math.random() * 2}s`; // Zufällige Verzögerung pro Buchstabe
+            textElement.appendChild(letterSpan);
+        }
+    </script>
 </body>
 </html>
